@@ -7,7 +7,8 @@ module.exports = {
   getRecIngr,
   getRecInst,
   getShoppingList,
-  getSteps
+  getSteps,
+  getByIngredient
 };
 
 function getRecipes() {
@@ -41,4 +42,11 @@ function getSteps(id) {
   return db("instructions")
     .where({ recipe_id: id })
     .orderBy("step_number");
+}
+
+function getByIngredient(id) {
+  return db("recipe_ingredients")
+    .join("recipes", "recipe_id", "recipes.id")
+    .select("recipe_name")
+    .where({ ingredient_id: id });
 }

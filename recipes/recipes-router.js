@@ -94,4 +94,17 @@ router.get("/:id/instructions", (req, res) => {
     });
 });
 
+router.get("/ingredients/:id/recipes" , (req, res) => {
+    const { id } = req.params
+
+    recData.getByIngredient(id)
+    .then(recipes => {
+        res.status(200).json(recipes)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json(error)
+    })
+})
+
 module.exports = router;
